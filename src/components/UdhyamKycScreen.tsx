@@ -139,8 +139,8 @@ export default function UdhyamKycScreen() {
             onClick={handleSendOtp}
             className="text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm"
             style={{ backgroundColor: '#2170BC' }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#1a5a9a'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#2170BC'}
+            onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a'}
+            onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2170BC'}
           >
             Send OTP
           </button>
@@ -182,8 +182,8 @@ export default function UdhyamKycScreen() {
           onClick={handleSubmit}
           className="w-full text-white font-medium py-4 rounded-lg transition-colors flex items-center justify-center"
           style={{ backgroundColor: '#2170BC' }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#1a5a9a'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#2170BC'}
+          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a'}
+          onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2170BC'}
         >
           Submit
           <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />

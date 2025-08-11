@@ -109,8 +109,8 @@ export default function LoanDisbursedScreen() {
           onClick={handleFinanceOtherInvoice}
           className="w-full text-white font-medium py-4 rounded-lg transition-colors flex items-center justify-center"
           style={{ backgroundColor: '#2170BC' }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#1a5a9a'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#2170BC'}
+          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a'}
+          onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2170BC'}
         >
           FINANCE OTHER INVOICE
         </button>
