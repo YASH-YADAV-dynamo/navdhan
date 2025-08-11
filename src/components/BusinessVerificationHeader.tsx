@@ -32,9 +32,9 @@ export default function BusinessVerificationHeader({ onBackClick }: BusinessVeri
         <div className="flex flex-col items-center">
           <Image
             src="/logo.png"
-            alt="Kubar Protocol Logo"
-            width={48}
-            height={48}
+            alt="Navdhan Protocol Logo"
+            width={80}
+            height={80}
             className="rounded-lg mb-2"
           />
         </div>
@@ -56,7 +56,7 @@ export default function BusinessVerificationHeader({ onBackClick }: BusinessVeri
             verticalAlign: 'middle'
           }}
         >
-          Welcome to Kubar
+          Welcome to Navdhan
         </h1>
         <p className="text-gray-300 text-lg">
           Please verify your Business Details

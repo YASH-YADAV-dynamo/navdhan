@@ -32,9 +32,9 @@ export default function BusinessDetailsHeader({ onBackClick }: BusinessDetailsHe
         <div className="flex flex-col items-center">
           <Image
             src="/logo.png"
-            alt="Kubar Protocol Logo"
-            width={48}
-            height={48}
+            alt="Navdhan Protocol Logo"
+            width={120}
+            height={120}
             className="rounded-lg mb-2"
           />
         </div>
@@ -56,7 +56,7 @@ export default function BusinessDetailsHeader({ onBackClick }: BusinessDetailsHe
             verticalAlign: 'middle'
           }}
         >
-          Welcome to Kubar
+          Welcome to Navdhan
         </h1>
         <p className="text-gray-300 text-lg">
           Please enter your Business Details

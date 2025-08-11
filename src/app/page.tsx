@@ -1,5 +1,9 @@
-import { LoginScreen } from '../components';
+import { LoginScreen, SplashScreen } from '../components';
 
 export default function Home() {
-  return <LoginScreen />;
+  return (
+    <SplashScreen duration={4000}>
+      <LoginScreen />
+    </SplashScreen>
+  );
 }

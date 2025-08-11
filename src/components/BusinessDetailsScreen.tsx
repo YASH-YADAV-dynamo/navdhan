@@ -27,7 +27,8 @@ export default function BusinessDetailsScreen() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Business details submission:', formData);
-      // Navigate to verification screen
+      console.log('Navigating to business verification...');
+      // Navigate to business verification screen
       router.push('/business-verification');
     } catch (error) {
       console.error('Submission failed:', error);
@@ -39,7 +40,7 @@ export default function BusinessDetailsScreen() {
   return (
     <div className="min-h-screen bg-black flex flex-col">
       <BusinessDetailsHeader onBackClick={handleBackClick} />
-      <BusinessDetailsForm onSubmit={handleSubmit} />
+      <BusinessDetailsForm onSubmit={handleSubmit} isLoading={isLoading} />
     </div>
   );
 } 

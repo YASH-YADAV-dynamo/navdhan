@@ -23,12 +23,12 @@ export default function Header({ onSignUpClick }: HeaderProps) {
         <div className="flex items-center gap-3">
           <Image
             src="/logo.png"
-            alt="Kubar Protocol Logo"
-            width={32}
-            height={32}
+            alt="Navdhan Protocol Logo"
+            width={80}
+            height={80}
             className="rounded-lg"
           />
-          <span className="text-sm font-semibold">Kubar Protocol</span>
+          {/* <span className="text-sm font-semibold">Navdhan Protocol</span> */}
         </div>
         
         <div className="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-lg">

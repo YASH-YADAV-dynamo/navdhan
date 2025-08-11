@@ -31,9 +31,9 @@ export default function BusinessVerificationScreen() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Business verification submission:', formData);
       // Handle successful submission here
-      alert('Account created successfully!');
-      // Optionally navigate to a success page or dashboard
-      // router.push('/dashboard');
+      console.log('Navigating to welcome screen...');
+      // Navigate to welcome screen
+      router.push('/welcome');
     } catch (error) {
       console.error('Submission failed:', error);
     } finally {

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kubar Protocol - Sign In",
-  description: "Sign in to your Kubar Protocol account",
+  title: "Navdhan Protocol",
+  description: "Welcome to Navdhan Protocol - Your secure business solution",
 };
 
 export default function RootLayout({

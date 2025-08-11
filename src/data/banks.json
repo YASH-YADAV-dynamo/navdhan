@@ -1,0 +1,42 @@
+[
+  {
+    "id": "hdfc",
+    "name": "HDFC Bank",
+    "icon": "hdfc.svg"
+  },
+  {
+    "id": "axis",
+    "name": "Axis Bank",
+    "icon": "axis.svg"
+  },
+  {
+    "id": "icici",
+    "name": "ICICI Bank",
+    "icon": "icici.svg"
+  },
+  {
+    "id": "sbi",
+    "name": "SBI Bank",
+    "icon": "sbi.svg"
+  },
+  {
+    "id": "dmi",
+    "name": "DMI Finance",
+    "icon": "dmi.svg"
+  },
+  {
+    "id": "icici2",
+    "name": "ICICI Bank",
+    "icon": "icici.svg"
+  },
+  {
+    "id": "sbi2",
+    "name": "SBI Bank",
+    "icon": "sbi.svg"
+  },
+  {
+    "id": "dmi2",
+    "name": "DMI Finance",
+    "icon": "dmi.svg"
+  }
+]
