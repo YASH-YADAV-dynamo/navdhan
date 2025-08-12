@@ -18,8 +18,8 @@ export default function LoanDisbursedScreen() {
 
   const handleFinanceOtherInvoice = () => {
     console.log('Finance Other Invoice clicked');
-    // Navigate to next route or handle action
-    router.push('/loan-disbursed');
+    // Navigate to dashboard
+    router.push('/dashboard');
   };
 
   return (
