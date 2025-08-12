@@ -4,41 +4,41 @@
     "name": "Cams Finserv",
     "rating": "4/5",
     "stars": 4,
-    "icon": "cams-finserv.svg"
+    "icon": "/account-aggregators/cams.svg"
   },
   {
     "id": "envestnet-yodlee",
     "name": "Envestnet Yodlee",
     "rating": "4/5",
     "stars": 4,
-    "icon": "envestnet-yodlee.svg"
+    "icon": "/account-aggregators/envestnet.svg"
   },
   {
     "id": "finvu",
     "name": "FinVu",
     "rating": "4/5",
     "stars": 4,
-    "icon": "https://finvu.in/static/media/brand.231c3b634835c642df41.png"
+    "icon": "/account-aggregators/finvu.svg"
   },
   {
     "id": "jio-information",
     "name": "Jio Information Solution Ltd",
     "rating": "4/5",
     "stars": 4,
-    "icon": "jio-information.svg"
+    "icon": "/account-aggregators/jio.svg"
   },
   {
     "id": "nesl-information",
     "name": "NESL Information Solution Ltd",
     "rating": "4/5",
     "stars": 4,
-    "icon": "nesl-information.svg"
+    "icon": "/account-aggregators/nesl.svg"
   },
   {
     "id": "one-money",
     "name": "One Money",
     "rating": "4/5",
     "stars": 4,
-    "icon": "one-money.svg"
+    "icon": "/account-aggregators/one-money.svg"
   }
 ]

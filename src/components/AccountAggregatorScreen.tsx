@@ -99,7 +99,7 @@ export default function AccountAggregatorScreen() {
               <div className="flex items-center gap-4 flex-1">
                 <div className="w-10 h-10 flex items-center justify-center bg-white rounded-lg">
                   <Image
-                    src={aggregator.icon.startsWith('http') ? aggregator.icon : `/${aggregator.icon}`}
+                    src={aggregator.icon.startsWith('http') ? aggregator.icon : aggregator.icon}
                     alt={`${aggregator.name} Logo`}
                     width={40}
                     height={40}
