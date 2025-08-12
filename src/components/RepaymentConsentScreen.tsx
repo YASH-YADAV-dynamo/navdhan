@@ -29,7 +29,7 @@ export default function RepaymentConsentScreen() {
       }, 1000);
     } else {
       // Navigate to loan disbursed screen after consent accepted
-      router.push('/loan-disbursed');
+      router.push('/loan-disbursed-status');
     }
   };
 

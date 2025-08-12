@@ -3,12 +3,23 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function LoanDisbursedStatusScreen() {
   const router = useRouter();
 
+  useEffect(() => {
+    // Automatically redirect to loan-disbursed after 2 seconds
+    const timer = setTimeout(() => {
+      router.push('/loan-disbursed');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   const handleBackClick = () => {
-    router.back();
+    // Navigate back to repayment consent screen
+    router.push('/repayment-consent');
   };
 
   const handleHelpClick = () => {
@@ -57,6 +68,10 @@ export default function LoanDisbursedStatusScreen() {
           
           <p className="text-white text-base leading-relaxed max-w-sm">
             Congratulations! Loans have been disbursed to your account.
+          </p>
+          
+          <p className="text-white text-sm mt-4 opacity-80">
+            Redirecting to final screen in 2 seconds...
           </p>
         </div>
       </div>

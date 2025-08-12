@@ -8,8 +8,8 @@ export default function LoanDisbursedScreen() {
   const router = useRouter();
 
   const handleBackClick = () => {
-    // Disable back button during loan disbursement
-    console.log('Back button disabled during loan disbursement');
+    // Navigate back to loan disbursed status
+    router.push('/loan-disbursed-status');
   };
 
   const handleHelpClick = () => {
@@ -19,7 +19,7 @@ export default function LoanDisbursedScreen() {
   const handleFinanceOtherInvoice = () => {
     console.log('Finance Other Invoice clicked');
     // Navigate to next route or handle action
-    router.push('/loan-disbursed-status');
+    router.push('/loan-disbursed');
   };
 
   return (
