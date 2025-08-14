@@ -3,38 +3,153 @@
 import { useState } from 'react';
 
 interface LoginFormProps {
-  onSubmit: (name: string, otp: string, rememberMe: boolean) => void;
+  onSubmit: (phoneNumber: string, otp: string, rememberMe: boolean) => void;
   onResendOtp: () => void;
 }
 
 export default function LoginForm({ onSubmit, onResendOtp }: LoginFormProps) {
-  const [name, setName] = useState('Loisbecket@gmail.com');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [otpError, setOtpError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSendOtp = async () => {
+    if (!phoneNumber || phoneNumber.length < 10) {
+      setOtpError('Please enter a valid phone number');
+      return;
+    }
+
+    setIsSendingOtp(true);
+    setOtpError('');
+
+    try {
+      const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsOtpSent(true);
+        setOtpError('');
+      } else {
+        setOtpError(data.error || 'Failed to send OTP');
+      }
+    } catch (error) {
+      setOtpError('Failed to send OTP. Please try again.');
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(name, otp, rememberMe);
+    
+    if (!isOtpSent) {
+      setOtpError('Please send OTP first');
+      return;
+    }
+
+    if (!otp) {
+      setOtpError('Please enter OTP');
+      return;
+    }
+
+    // Verify OTP first
+    try {
+      const response = await fetch('/api/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber, otp }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        onSubmit(phoneNumber, otp, rememberMe);
+      } else {
+        setOtpError('Invalid OTP. Please try again.');
+      }
+    } catch (error) {
+      setOtpError('Failed to verify OTP. Please try again.');
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (!phoneNumber) {
+      setOtpError('Please enter phone number first');
+      return;
+    }
+    
+    setIsSendingOtp(true);
+    setOtpError('');
+
+    try {
+      const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setOtpError('');
+        // Clear OTP field for new input
+        setOtp('');
+      } else {
+        setOtpError(data.error || 'Failed to resend OTP');
+      }
+    } catch (error) {
+      setOtpError('Failed to resend OTP. Please try again.');
+    } finally {
+      setIsSendingOtp(false);
+    }
   };
 
   return (
     <div className="bg-white p-6 flex-1">
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Name Input */}
+        {/* Phone Number Input */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-            Name
+          <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+            Phone
           </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors text-black placeholder-black"
-            placeholder="Enter your name"
-            style={{ color: 'black' }}
-          />
+          <div className="relative">
+            <input
+              type="tel"
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+                setOtpError('');
+                if (isOtpSent) setIsOtpSent(false);
+              }}
+              className="w-full px-4 py-3 pr-28 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors text-black placeholder-black"
+              placeholder="Enter your phone number"
+              style={{ color: 'black' }}
+              maxLength={10}
+            />
+            <button
+              type="button"
+              onClick={handleSendOtp}
+              disabled={isSendingOtp || !phoneNumber || phoneNumber.length < 10}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-600 text-sm font-medium px-2 py-1 rounded hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed bg-white"
+            >
+              {isSendingOtp ? 'Sending...' : 'Send OTP'}
+            </button>
+          </div>
         </div>
 
         {/* OTP Input */}
@@ -47,10 +162,14 @@ export default function LoginForm({ onSubmit, onResendOtp }: LoginFormProps) {
               type={showOtp ? 'text' : 'password'}
               id="otp"
               value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              onChange={(e) => {
+                setOtp(e.target.value);
+                setOtpError('');
+              }}
               className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors text-black placeholder-black"
               placeholder="Enter OTP"
               style={{ color: 'black' }}
+              disabled={!isOtpSent}
             />
             <button
               type="button"
@@ -71,6 +190,11 @@ export default function LoginForm({ onSubmit, onResendOtp }: LoginFormProps) {
           </div>
         </div>
 
+        {/* Error Message */}
+        {otpError && (
+          <div className="text-red-600 text-sm">{otpError}</div>
+        )}
+
         {/* Remember Me and Resend OTP */}
         <div className="flex items-center justify-between">
           <label className="flex items-center">
@@ -84,17 +208,19 @@ export default function LoginForm({ onSubmit, onResendOtp }: LoginFormProps) {
           </label>
           <button
             type="button"
-            onClick={onResendOtp}
-            className="text-blue-600 text-sm underline hover:text-blue-500 transition-colors"
+            onClick={handleResendOtp}
+            disabled={!isOtpSent || isSendingOtp}
+            className="text-blue-600 text-sm underline hover:text-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Resend OTP
+            {isSendingOtp ? 'Sending...' : 'Resend OTP'}
           </button>
         </div>
 
         {/* Login Button */}
         <button
           type="submit"
-          className="w-full text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+          disabled={!isOtpSent || !otp}
+          className="w-full text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           style={{ backgroundColor: '#2170BC' }}
         >
           Log In

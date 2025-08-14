@@ -10,12 +10,12 @@ export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async (name: string, otp: string, rememberMe: boolean) => {
+  const handleLogin = async (phoneNumber: string, otp: string, rememberMe: boolean) => {
     setIsLoading(true);
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('Login attempt:', { name, otp, rememberMe });
+      console.log('Login attempt:', { phoneNumber, otp, rememberMe });
       // Navigate to business details page
       router.push('/business-details');
     } catch (error) {

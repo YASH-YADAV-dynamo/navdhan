@@ -191,8 +191,8 @@ export default function DashboardScreen() {
         <div className="flex items-center justify-around h-full">
           <button
             onClick={() => setActiveTab('home')}
-            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-3xl transition-colors ${
-              activeTab === 'home' ? '' : 'hover:opacity-80'
+            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+              activeTab === 'home' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
             style={{ backgroundColor: activeTab === 'home' ? '#003D77' : 'transparent' }}
           >
@@ -202,8 +202,8 @@ export default function DashboardScreen() {
 
           <button
             onClick={() => setActiveTab('loans')}
-            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-3xl transition-colors ${
-              activeTab === 'loans' ? '' : 'hover:opacity-80'
+            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+              activeTab === 'loans' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
             style={{ backgroundColor: activeTab === 'loans' ? '#003D77' : 'transparent' }}
           >
@@ -213,8 +213,8 @@ export default function DashboardScreen() {
 
           <button
             onClick={() => setActiveTab('invoices')}
-            className={`flex flex-col items-center gap-1 px-4 py-2 rounded-3xl transition-colors ${
-              activeTab === 'invoices' ? '' : 'hover:opacity-80'
+            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+              activeTab === 'invoices' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
             style={{ backgroundColor: activeTab === 'invoices' ? '#003D77' : 'transparent' }}
           >
@@ -224,8 +224,8 @@ export default function DashboardScreen() {
 
           <button
             onClick={() => setActiveTab('settings')}
-            className={`flex flex-col items-center gap-1 px-7 py-2 rounded-3xl transition-colors ${
-              activeTab === 'settings' ? '' : 'hover:opacity-80'
+            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+              activeTab === 'settings' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
             style={{ backgroundColor: activeTab === 'settings' ? '#003D77' : 'transparent' }}
           >

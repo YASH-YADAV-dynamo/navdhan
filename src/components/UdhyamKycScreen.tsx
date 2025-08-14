@@ -8,27 +8,126 @@ import { ArrowLeft, User, CreditCard, MessageCircleDashed } from 'lucide-react';
 export default function UdhyamKycScreen() {
   const router = useRouter();
   const [udhyamNumber, setUdhyamNumber] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
-  const [sendOtpTo, setSendOtpTo] = useState('phone'); // 'phone' or 'email'
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [otpError, setOtpError] = useState('');
   const [agreeToShare, setAgreeToShare] = useState(false);
 
   const handleBackClick = () => {
     router.back();
   };
 
-  const handleSendOtp = () => {
-    console.log('Send OTP clicked for:', sendOtpTo);
-  };
-
-  const handleSubmit = () => {
-    if (!agreeToShare) {
-      alert('Please agree to share your Udyam certificate');
+  const handleSendOtp = async () => {
+    if (!udhyamNumber || !phoneNumber) {
+      setOtpError('Please enter both Udyam number and phone number');
       return;
     }
-    console.log('Submit clicked');
-    // Navigate to lender loading screen
-    router.push('/lender-loading');
+
+    if (phoneNumber.length < 10) {
+      setOtpError('Please enter a valid phone number');
+      return;
+    }
+
+    setIsSendingOtp(true);
+    setOtpError('');
+
+    try {
+      const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsOtpSent(true);
+        setOtpError('');
+      } else {
+        setOtpError(data.error || 'Failed to send OTP');
+      }
+    } catch (error) {
+      setOtpError('Failed to send OTP. Please try again.');
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (!phoneNumber) {
+      setOtpError('Please enter phone number first');
+      return;
+    }
+    
+    setIsSendingOtp(true);
+    setOtpError('');
+
+    try {
+      const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setOtpError('');
+        setOtp('');
+      } else {
+        setOtpError(data.error || 'Failed to resend OTP');
+      }
+    } catch (error) {
+      setOtpError('Failed to resend OTP. Please try again.');
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!agreeToShare) {
+      setOtpError('Please agree to share your Udyam certificate');
+      return;
+    }
+
+    if (!isOtpSent) {
+      setOtpError('Please send OTP first');
+      return;
+    }
+
+    if (!otp) {
+      setOtpError('Please enter OTP');
+      return;
+    }
+
+    // Verify OTP first
+    try {
+      const response = await fetch('/api/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber, otp }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log('OTP verified successfully');
+        // Navigate to lender loading screen
+        router.push('/lender-loading');
+      } else {
+        setOtpError('Invalid OTP. Please try again.');
+      }
+    } catch (error) {
+      setOtpError('Failed to verify OTP. Please try again.');
+    }
   };
 
   return (
@@ -85,64 +184,53 @@ export default function UdhyamKycScreen() {
               <input
                 type="text"
                 value={udhyamNumber}
-                onChange={(e) => setUdhyamNumber(e.target.value)}
+                onChange={(e) => {
+                  setUdhyamNumber(e.target.value);
+                  setOtpError('');
+                  if (isOtpSent) setIsOtpSent(false);
+                }}
                 className="w-full bg-white border-0 pl-12 pr-4 py-4 text-gray-600 placeholder-gray-400 focus:outline-none"
                 placeholder="Udyam Registration Number"
               />
             </div>
 
-            {/* Mobile Number */}
+            {/* Phone Number */}
             <div className="relative">
               <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: '#2170BC' }} />
               <input
-                type="text"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
+                type="tel"
+                value={phoneNumber}
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                  setOtpError('');
+                  if (isOtpSent) setIsOtpSent(false);
+                }}
                 className="w-full bg-white border-0 pl-12 pr-4 py-4 text-gray-600 placeholder-gray-400 focus:outline-none"
-                placeholder="Mobile Number Linked to Udyam Account"
+                placeholder="Phone Number Linked to Udyam Account"
+                maxLength={10}
               />
             </div>
           </div>
 
-          {/* Send OTP to Section */}
-          <div>
-            <h3 className="text-white text-sm font-medium mb-4">Send OTP to:</h3>
-            <div className="space-y-3">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="otpMethod"
-                  value="phone"
-                  checked={sendOtpTo === 'phone'}
-                  onChange={(e) => setSendOtpTo(e.target.value)}
-                  className="w-4 h-4 text-white bg-white border-white focus:ring-white accent-white"
-                />
-                <span className="ml-3 text-white text-sm">Udyam Phone Number</span>
-              </label>
-              
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="otpMethod"
-                  value="email"
-                  checked={sendOtpTo === 'email'}
-                  onChange={(e) => setSendOtpTo(e.target.value)}
-                  className="w-4 h-4 text-white bg-white border-white focus:ring-white accent-white"
-                />
-                <span className="ml-3 text-white text-sm">Udyam Email ID</span>
-              </label>
-            </div>
-          </div>
+          {/* Error Message */}
+          {otpError && (
+            <div className="text-red-400 text-sm text-center">{otpError}</div>
+          )}
 
           {/* Send OTP Button */}
           <button
             onClick={handleSendOtp}
-            className="text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm"
+            disabled={isSendingOtp || !udhyamNumber || !phoneNumber || phoneNumber.length < 10}
+            className="text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ backgroundColor: '#2170BC' }}
-            onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a'}
+            onMouseEnter={(e) => {
+              if (!isSendingOtp && udhyamNumber && phoneNumber && phoneNumber.length >= 10) {
+                (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a';
+              }
+            }}
             onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2170BC'}
           >
-            Send OTP
+            {isSendingOtp ? 'Sending OTP...' : 'Send OTP'}
           </button>
 
           {/* Enter OTP */}
@@ -152,12 +240,27 @@ export default function UdhyamKycScreen() {
               <input
                 type="text"
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                className="w-full bg-white border-0 rounded-lg pl-12 pr-4 py-4 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2"
+                onChange={(e) => {
+                  setOtp(e.target.value);
+                  setOtpError('');
+                }}
+                className="w-full bg-white border-0 rounded-lg pl-12 pr-4 py-4 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 disabled:opacity-50"
                 style={{ '--tw-ring-color': '#2170BC' } as React.CSSProperties}
                 placeholder="Enter OTP"
+                disabled={!isOtpSent}
               />
             </div>
+            
+            {/* Resend OTP */}
+            {isOtpSent && (
+              <button
+                onClick={handleResendOtp}
+                disabled={isSendingOtp}
+                className="text-blue-400 text-sm underline hover:text-blue-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+              >
+                {isSendingOtp ? 'Sending...' : 'Resend OTP'}
+              </button>
+            )}
           </div>
 
           {/* Agreement Checkbox */}
@@ -180,9 +283,14 @@ export default function UdhyamKycScreen() {
       <div className="fixed bottom-0 left-0 right-0 bg-black p-6">
         <button
           onClick={handleSubmit}
-          className="w-full text-white font-medium py-4 rounded-lg transition-colors flex items-center justify-center"
+          disabled={!isOtpSent || !otp || !agreeToShare}
+          className="w-full text-white font-medium py-4 rounded-lg transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           style={{ backgroundColor: '#2170BC' }}
-          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a'}
+          onMouseEnter={(e) => {
+            if (isOtpSent && otp && agreeToShare) {
+              (e.target as HTMLButtonElement).style.backgroundColor = '#1a5a9a';
+            }
+          }}
           onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2170BC'}
         >
           Submit
