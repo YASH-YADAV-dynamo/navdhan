@@ -13,8 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Navdhan Protocol",
-  description: "Welcome to Navdhan Protocol - Your secure business solution",
+  title: "NavDhan",
+  description: "Welcome to NavDhan - Your secure business solution",
+  icons: {
+    icon: '/logo.ico',
+    shortcut: '/logo.ico',
+    apple: '/logo.ico',
+  },
 };
 
 export default function RootLayout({
@@ -24,6 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/logo.ico" />
+        <link rel="shortcut icon" href="/logo.ico" />
+        <link rel="apple-touch-icon" href="/logo.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
