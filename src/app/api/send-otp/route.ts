@@ -22,17 +22,19 @@ export async function POST(request: NextRequest) {
     const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
 
     // Send OTP using Twilio Verify
-    const verification = await client.verify.v2
-      .services(process.env.TWILIO_VERIFY_SERVICE_ID!)
-      .verifications.create({
-        to: formattedPhone,
-        channel: 'sms'
-      });
+    // COMMENTED OUT - TWILIO DISABLED
+    // const verification = await client.verify.v2
+    //   .services(process.env.TWILIO_VERIFY_SERVICE_ID!)
+    //   .verifications.create({
+    //     to: formattedPhone,
+    //     channel: 'sms'
+    //   });
 
+    // MOCK: Return success without actual Twilio call
     return NextResponse.json({
       success: true,
       message: 'OTP sent successfully',
-      sid: verification.sid
+      sid: 'mock_sid_' + Date.now()
     });
 
   } catch (error) {

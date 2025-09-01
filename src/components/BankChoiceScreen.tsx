@@ -59,24 +59,24 @@ export default function BankChoiceScreen() {
 
         {/* Logo and Title Section */}
         <div className="px-6 pb-6 text-center">
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4">
             <Image
               src="/logo.png"
               alt="Navdhan Logo"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               className="object-contain"
             />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Select your bank</h1>
+          <h1 className="text-xl font-bold text-white mb-2">Select your bank</h1>
           <p className="text-gray-400 text-sm">Select the bank where you have an account</p>
         </div>
       </div>
 
-      {/* Content */}
+      {/* Scrollable Content */}
       <div className="px-6 pb-8">
-        {/* Banks List */}
-        <div className="space-y-4 max-h-96 overflow-y-auto">
+        {/* Banks List - Scrollable */}
+        <div className="space-y-3">
           {banksData.map((bank: Bank) => (
             <div
               key={bank.id}
@@ -115,7 +115,7 @@ export default function BankChoiceScreen() {
         </div>
       </div>
 
-      {/* Fixed Next Button */}
+      {/* Floating Next Button */}
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-black">
         <button
           onClick={handleNext}

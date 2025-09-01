@@ -72,16 +72,16 @@ export default function AccountAggregatorScreen() {
 
         {/* Logo and Title Section */}
         <div className="px-6 pb-6 text-center">
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4">
             <Image
               src="/logo.png"
               alt="Navdhan Logo"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               className="object-contain"
             />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Select Account Aggregator</h1>
+          <h1 className="text-xl font-bold text-white mb-2">Select Account Aggregator</h1>
           <p className="text-gray-400 text-sm">Choose one of the RBI approved Account Aggregators to share your financial information</p>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function AccountAggregatorScreen() {
       {/* Content */}
       <div className="px-6 pb-8">
         {/* Account Aggregators List */}
-        <div className="space-y-4 max-h-96 overflow-y-auto">
+        <div className="space-y-3">
           {accountAggregatorsData.map((aggregator: AccountAggregator) => (
             <div
               key={aggregator.id}

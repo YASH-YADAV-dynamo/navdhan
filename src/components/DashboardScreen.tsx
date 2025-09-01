@@ -188,49 +188,61 @@ export default function DashboardScreen() {
           height: '59.38px'
         }}
       >
-        <div className="flex items-center justify-around h-full">
+        <div className="flex items-center justify-between h-full px-3">
           <button
             onClick={() => setActiveTab('home')}
-            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+            className={`flex flex-col items-center gap-1 py-2 px-3 transition-colors ${
               activeTab === 'home' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
-            style={{ backgroundColor: activeTab === 'home' ? '#003D77' : 'transparent' }}
+            style={{ 
+              backgroundColor: activeTab === 'home' ? '#003D77' : 'transparent',
+              minWidth: '60px'
+            }}
           >
-            <House className="w-5 h-5 text-white" />
-            <span className="text-xs text-white">Home</span>
+            <House className="w-4 h-4 text-white" />
+            <span className="text-[10px] text-white leading-tight">Home</span>
           </button>
 
           <button
             onClick={() => setActiveTab('loans')}
-            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+            className={`flex flex-col items-center gap-1 py-2 px-3 transition-colors ${
               activeTab === 'loans' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
-            style={{ backgroundColor: activeTab === 'loans' ? '#003D77' : 'transparent' }}
+            style={{ 
+              backgroundColor: activeTab === 'loans' ? '#003D77' : 'transparent',
+              minWidth: '60px'
+            }}
           >
-            <IndianRupee className="w-5 h-5 text-white" />
-            <span className="text-xs text-white">Loans</span>
+            <IndianRupee className="w-4 h-4 text-white" />
+            <span className="text-[10px] text-white leading-tight">Loans</span>
           </button>
 
           <button
             onClick={() => setActiveTab('invoices')}
-            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+            className={`flex flex-col items-center gap-1 py-2 px-3 transition-colors ${
               activeTab === 'invoices' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
-            style={{ backgroundColor: activeTab === 'invoices' ? '#003D77' : 'transparent' }}
+            style={{ 
+              backgroundColor: activeTab === 'invoices' ? '#003D77' : 'transparent',
+              minWidth: '60px'
+            }}
           >
-            <FileText className="w-5 h-5 text-white" />
-            <span className="text-xs text-white">Invoices</span>
+            <FileText className="w-4 h-4 text-white" />
+            <span className="text-[10px] text-white leading-tight">Invoices</span>
           </button>
 
           <button
             onClick={() => setActiveTab('settings')}
-            className={`flex flex-col items-center gap-1 px-4 py-2 transition-colors ${
+            className={`flex flex-col items-center gap-1 py-2 px-3 transition-colors ${
               activeTab === 'settings' ? 'rounded-full' : 'rounded-3xl hover:opacity-80'
             }`}
-            style={{ backgroundColor: activeTab === 'settings' ? '#003D77' : 'transparent' }}
+            style={{ 
+              backgroundColor: activeTab === 'settings' ? '#003D77' : 'transparent',
+              minWidth: '60px'
+            }}
           >
-            <Settings className="w-5 h-5 text-white" />
-            <span className="text-xs text-white">Settings</span>
+            <Settings className="w-4 h-4 text-white" />
+            <span className="text-[10px] text-white leading-tight">Settings</span>
           </button>
         </div>
       </div>
