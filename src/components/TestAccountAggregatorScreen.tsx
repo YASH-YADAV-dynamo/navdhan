@@ -86,6 +86,7 @@ export default function TestAccountAggregatorScreen() {
                    placeholder="Enter your mobile number"
                    className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                    maxLength={10}
+                   suppressHydrationWarning
                  />
                  <p className="text-gray-600 text-sm mt-2">You will receive a 6-digit number as OTP</p>
                </div>
@@ -96,7 +97,10 @@ export default function TestAccountAggregatorScreen() {
                 </p>
                 
                 <div className="flex gap-3">
-                  <button className="flex-1 py-3 px-4 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                  <button 
+                    className="flex-1 py-3 px-4 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+                    suppressHydrationWarning
+                  >
                     LOGIN
                   </button>
                   <button
@@ -518,6 +522,7 @@ export default function TestAccountAggregatorScreen() {
           <button
             onClick={handleBackClick}
             className="text-gray-600 hover:text-gray-800 transition-colors"
+            suppressHydrationWarning
           >
             <ArrowLeft className="w-6 h-6" />
           </button>

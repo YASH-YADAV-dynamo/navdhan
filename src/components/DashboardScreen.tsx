@@ -45,14 +45,33 @@ export default function DashboardScreen() {
             <p className="text-gray-400 text-sm">PAN: ABCDE1234F</p>
             <button 
               onClick={() => router.push('/consent')}
-              className="border border-white text-white px-3 py-1 rounded-full text-xs font-medium hover:bg-white hover:text-black transition-colors whitespace-nowrap"
+              className="relative bg-white text-black px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-all duration-300 whitespace-nowrap overflow-hidden"
               style={{ width: '150px', height: '28px' }}
             >
-              + Get a new Loan
+              <span className="relative z-10">+ Get a new Loan</span>
+              <div 
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, #00000020 20%, #00000040 40%, #00000060 50%, #00000040 60%, #00000020 80%, transparent 100%)',
+                  animation: 'cloudyFlow 2s ease-in-out infinite',
+                  width: '200%',
+                  left: '-50%'
+                }}
+              ></div>
+              <style jsx>{`
+                @keyframes cloudyFlow {
+                  0% {
+                    transform: translateX(-100%);
+                  }
+                  100% {
+                    transform: translateX(100%);
+                  }
+                }
+              `}</style>
             </button>
           </div>
         </div>
-      </div>c
+      </div>
 
       {/* Scrollable Content */}
       <div className="px-6 space-y-6 overflow-y-auto pt-6 opacity-30">

@@ -30,9 +30,9 @@ export default function LoanProcessingScreen() {
           }, 1000);
           return 100;
         }
-        return prev + 2; // Increase by 2% every interval
+        return prev + 4; // Increase by 4% every interval
       });
-    }, 150); // Update every 150ms
+    }, 75); // Update every 75ms
 
     return () => clearInterval(interval);
   }, [router]);

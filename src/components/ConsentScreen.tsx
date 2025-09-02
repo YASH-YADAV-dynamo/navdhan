@@ -21,9 +21,9 @@ export default function ConsentScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
-      <div className="bg-black">
+      <div className="bg-black flex-shrink-0">
         <div className="flex items-center justify-between p-6">
           <button
             onClick={handleBackClick}
@@ -50,9 +50,8 @@ export default function ConsentScreen() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="px-8 pb-8 pt-6 ml-4">
-
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto px-8 pt-6 ml-4 pb-24">
         {/* Consent Sections */}
         <div className="space-y-6 mb-8">
           {/* GST Data Consent */}
@@ -87,8 +86,10 @@ export default function ConsentScreen() {
             I understand and agree to buyer app's Terms
           </label>
         </div>
+      </div>
 
-        {/* Start Button */}
+      {/* Sticky Start Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-black p-6">
         <button
           onClick={handleStartClick}
           disabled={!isAgreed}

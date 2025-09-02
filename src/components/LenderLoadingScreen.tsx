@@ -30,9 +30,9 @@ export default function LenderLoadingScreen() {
            }, 1000);
           return 100;
         }
-        return prev + 1.5; // Increase by 1.5% every interval (slower than loan processing)
+        return prev + 3; // Increase by 3% every interval (faster than before)
       });
-    }, 200); // Update every 200ms
+    }, 100); // Update every 100ms
 
     return () => clearInterval(interval);
   }, [router]);

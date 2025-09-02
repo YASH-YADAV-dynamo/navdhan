@@ -9,7 +9,7 @@ interface SplashScreenProps {
   duration?: number;
 }
 
-export default function SplashScreen({ children, duration = 4000 }: SplashScreenProps) {
+export default function SplashScreen({ children, duration = 2000 }: SplashScreenProps) {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {

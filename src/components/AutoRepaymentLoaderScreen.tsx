@@ -26,7 +26,7 @@ export default function AutoRepaymentLoaderScreen() {
       setTimeout(() => {
         router.push('/setup-auto-repayment');
       }, 3000);
-    }, 2000); // Show success after 2 seconds
+    }, 1000); // Show success after 1 second
 
     return () => clearTimeout(timer);
   }, [router]);
