@@ -52,10 +52,10 @@ export default function DashboardScreen() {
             </button>
           </div>
         </div>
-      </div>
+      </div>c
 
       {/* Scrollable Content */}
-      <div className="px-6 space-y-6 overflow-y-auto pt-6">
+      <div className="px-6 space-y-6 overflow-y-auto pt-6 opacity-30">
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
@@ -75,10 +75,11 @@ export default function DashboardScreen() {
           </div>
 
           {/* Active Loans */}
+          {/* see color */}
           <div className="bg-black rounded-lg p-4">
             <div className="flex flex-col items-center gap-2 mb-2">
               <HandCoins className="w-6 h-6 text-yellow-500" />
-              <span className="text-sm text-gray-400">Active Loans</span>
+              <span className="text-sm text-gray-200">Active Loans</span>
             </div>
             <p className="text-2xl font-bold text-white text-center">4</p>
           </div>
